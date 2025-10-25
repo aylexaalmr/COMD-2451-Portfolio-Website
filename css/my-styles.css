@@ -1,0 +1,60 @@
+        body {
+            background-color: #F4EEED;
+        }
+       
+       
+       h1 {                                   /*display typeface*/
+            font-family: "DynaPuff", serif;
+            font-size: 32px;
+            font-weight: bold;
+            color: #2F1F19;
+        }
+
+        h2 {
+            font-family: "DynaPuff", serif;
+            font-weight: bold;
+            color: #2F1F19;
+            font-size: 24px;
+        }
+
+        article img {
+        max-width: 80%;
+        height:auto;}
+
+
+        p, h4, a, .w3-text {                       /*text typeface*/
+            font-family: "Comfortaa", sans-serif;
+            font-weight: "regular";
+            color: #2F1F19;
+            font-size: 16px;
+        }
+
+
+        .w3-bar, nav {
+            background-color: #DEC0C7;
+            display:flex; 
+            justify-content:space-between; 
+            padding:10px 20px; 
+            position:sticky; 
+            top:0; 
+            z-index:1;
+        }
+
+        div .w3-round-xlarge {                  /*percentage bar*/
+            background-color: #DEC0C7
+        }
+
+        footer {
+            background-color: #DEC0C7;
+        }
+
+        i {
+            color: #dd758e;
+        }
+
+        h5 {                    /*Educational Institutions*/
+            font-family: "Comfortaa", sans-serif;
+            font-weight: "bold";
+            color: #2F1F19
+        }
+
