@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <title>Sprite</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="css/my-styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <!-- Nav -->
+         <div class="topnav" id="myTopnav">
+            <h1 class="logo"> <img src="assets/comd1112_personallogo_300dpi.png" style="max-width: 70px;"> ayle.svg</h1>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+        <!-- End Nav -->
+
+        <!-- Header -->
+        <div class="w3-container w3-center">
+            <h2 class="w3-xxxlarge"> Sprite </h2>
+            <p class="w3-row l6 s12"> 
+            For this summer campaign, I created a series of posters with QR codes to position Sprite as the leaders of refreshment.
+            </p>
+        </div>
+        <!-- End header -->
+         
+        <!-- Gallery -->
+        <div class="w3-container w3-row-padding w3-center">
+            <div class="w3-col">
+                <img src="assets/comd1112_spriteposters_mockup_300dpi.jpg" class="gallery-img" style="max-width:100%;" alt="Sprite posters displayed side-by-side on a gray wall">
+            </div>
+        </div>
+
+        <div class="w3-row-padding">
+            <div class="w3-col l4 m6 s12 w3-padding-32">
+                    <img src="assets/comd1112_sprite_poster1_300dpi.jpg" class="gallery-img" alt="Multiple cans of Sprite in different flavors creating a pattern with the text Refreshment is one Sprite away" style="width:100%">
+                </div>
+            <div class="w3-col l4 m6 s12 w3-padding-32">
+                    <img src="assets/comd1112_sprite_poster2_300dpi.jpg" class="gallery-img" alt="Sprite poster with text that reads Refreshment is one Sprite away and a water splash" style="width:100%">
+            </div>
+            <div class="w3-col l4 m6 s12 w3-padding-32">
+                    <img src="assets/comd1112_sprite_poster3_300dpi.jpg" class="gallery-img" alt="Sprite bottle with lemon and lime slices on the sides, with a splash on a green and yellow background with text reading Refreshment is one Sprite away" style="width:100%">
+            </div>
+        </div>
+        <!-- End gallery -->
+
+        <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer" style="display:none;">
+            <button id="lb-close" class="lb-close" aria-label="Close viewer">&times;</button>
+            <button id="lb-prev" class="lb-nav lb-prev" aria-label="Previous image">&#10094;</button>
+            <img id="lb-image" class="lb-image" src="" alt="" />
+            <button id="lb-next" class="lb-nav lb-next" aria-label="Next image">&#10095;</button>
+            <div id="lb-caption" class="lb-caption" aria-live="polite"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="w3-container w3-center w3-margin-top" style="padding-bottom:12px;">
+            <p>Let's connect</p>
+            <a href="https://www.instagram.com/ayle.svg/"><i class="fa fa-instagram w3-margin-right w3-xlarge w3-hover-opacity" style="color: #2F1F19"></i></a>
+            <a href="https://www.linkedin.com/in/aylexa-almanzar-ruiz-1b3ba035a/" id="example"><i class="fa fa-linkedin w3-margin-right w3-xlarge w3-hover-opacity" style="color: #2F1F19"></i></a>
+        </footer>
+        <!-- End footer -->
+
+        <!-- Script -->
+        <script>
+            function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+            const images = Array.from(document.querySelectorAll('.gallery-img'));
+            if (!images.length) return;
+
+            const lightbox = document.getElementById('lightbox');
+            const lbImage = document.getElementById('lb-image');
+            const lbCaption = document.getElementById('lb-caption');
+            const btnNext = document.getElementById('lb-next');
+            const btnPrev = document.getElementById('lb-prev');
+            const btnClose = document.getElementById('lb-close');
+
+            let currentIndex = 0;
+
+            const captionInfos = images.map(img => {
+                const next = img.nextElementSibling;
+                if (next && next.tagName === 'P') {
+                return { el: next, originalDisplay: next.style.display || '' };
+                }
+                return null;
+            }).filter(Boolean);
+
+            images.forEach((img, idx) => {
+                img.setAttribute('data-index', idx);
+                img.setAttribute('tabindex', '0');
+                img.style.outline = 'none';
+                img.addEventListener('click', () => open(idx));
+                img.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(idx); }
+                });
+            });
+
+            function open(index) {
+                currentIndex = index;
+                show(currentIndex);
+
+                lightbox.style.background = 'rgba(255,255,255, 0.9)';
+                lightbox.style.display = 'flex';
+                lightbox.classList.add('open');
+                lightbox.setAttribute('aria-hidden', 'false');
+
+                btnClose.focus();
+                document.body.style.overflow = 'hidden';
+            }
+
+            function close() {
+                lightbox.classList.remove('open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                lightbox.style.display = 'none';
+                captionInfos.forEach(info => { info.el.style.display = info.originalDisplay || ''; });
+                lightbox.style.background = '';
+                document.body.style.overflow = '';
+
+                const origin = images[currentIndex];
+                if (origin) origin.focus();
+            }
+
+            function show(index) {
+                const img = images[index];
+                if (!img) return;
+                lbImage.src = img.src;
+                currentIndex = index;
+            }
+
+            function next() {
+                show((currentIndex + 1) % images.length);
+            }
+
+            function prev() {
+                show((currentIndex - 1 + images.length) % images.length);
+            }
+
+            btnNext.addEventListener('click', next);
+            btnPrev.addEventListener('click', prev);
+            btnClose.addEventListener('click', close);
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) close();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('open')) return;
+                if (e.key === 'ArrowRight') next();
+                if (e.key === 'ArrowLeft') prev();
+                if (e.key === 'Escape') close();
+            });
+            });
+        </script>
+        <!-- End script -->
+    </body>
+</html>
+
